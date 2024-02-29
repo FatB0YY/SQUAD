@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server'
+
 import { Poppins } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -8,7 +10,9 @@ const font = Poppins({
   weight: ['600']
 })
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations('Home')
+
   const gradientClass =
     'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800'
 
@@ -28,7 +32,7 @@ export default function Home() {
         >
           🔐 Auth
         </h1>
-        <p className='text-white text-lg'>A simple authentication service </p>
+        <p className='text-white text-lg'>{t('text')}</p>
 
         <div>
           <LoginButton>
@@ -36,7 +40,7 @@ export default function Home() {
               variant='secondary'
               size='lg'
             >
-              Sign in
+              {t('btn')}
             </Button>
           </LoginButton>
         </div>

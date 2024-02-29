@@ -24,12 +24,14 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
+import { useLocale, useTranslations } from 'next-intl'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>(undefined)
   const [success, setSuccess] = useState<string | undefined>(undefined)
-  undefined
   const [isPending, startTransition] = useTransition()
+  const activeLocale = useLocale()
+  const t = useTranslations('LoginForm')
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -54,9 +56,9 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel="Don't have an account?"
-      backButtonHref='/auth/register'
+      headerLabel={t('headerLabel')}
+      backButtonLabel={t('backButtonLabel')}
+      backButtonHref={`signup`}
       showSocial
     >
       <Form {...form}>
@@ -70,7 +72,7 @@ export const LoginForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('emailfield')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -88,7 +90,7 @@ export const LoginForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('passwordfiled')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -110,7 +112,7 @@ export const LoginForm = () => {
             className='w-full'
             disabled={isPending}
           >
-            Login
+            {t('submitbtn')}
           </Button>
         </form>
       </Form>

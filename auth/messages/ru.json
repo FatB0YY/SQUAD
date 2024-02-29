@@ -1,0 +1,32 @@
+{
+  "Home": {
+    "text": "Служба аутентификации",
+    "btn": "Войти"
+  },
+  "LoginForm": {
+    "headerLabel": "Добро пожаловать",
+    "backButtonLabel": "У вас нет учетной записи?",
+    "emailfield": "Почта",
+    "passwordfiled": "Пароль",
+    "submitbtn": "Войти",
+    "loginErrorSuccessMessages": {
+      "success": "Удачно!",
+      "invalidFields": "Недопустимые поля!",
+      "invalidCredentials": "Неверные учетные данные!",
+      "somethingWentWrong": "Что-то пошло не так!"
+    }
+  },
+  "RegisterForm": {
+    "headerLabel": "Создать аккаунт",
+    "backButtonLabel": "У вас уже есть учетная запись?",
+    "emailfield": "Почта",
+    "passwordfiled": "Пароль",
+    "namefield": "Имя",
+    "submitbtn": "Создать аккаунт",
+    "registerErrorSuccessMessages": {
+      "success": "Пользователь создан!",
+      "invalidFields": "Недопустимые поля!",
+      "emailAlreadyInUse": "Электронная почта уже используется!"
+    }
+  }
+}

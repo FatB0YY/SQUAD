@@ -6,12 +6,14 @@ import { signIn, signOut } from '@/auth'
 import { LoginSchema } from '@/schemas'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { AuthError } from 'next-auth'
+import { getTranslations } from 'next-intl/server'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values)
+  const t = await getTranslations('LoginForm.loginErrorSuccessMessages')
 
   if (!validatedFields.success) {
-    return { error: 'Invalid fields!' }
+    return { error: t('invalidFields') }
   }
 
   const { email, password } = validatedFields.data
@@ -23,17 +25,19 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       // redirectTo: calbackUrl || DEFAULT_LOGIN_REDIRECT
       redirectTo: DEFAULT_LOGIN_REDIRECT
     })
+
+    return { success: t('success') }
   } catch (error) {
     console.error(error)
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin': {
           return {
-            error: 'Invalid credentials!'
+            error: t('invalidCredentials')
           }
         }
         default: {
-          return { error: 'Something went wrong!' }
+          return { error: t('somethingWentWrong') }
         }
       }
     }

@@ -6,6 +6,23 @@ import type { NextAuthConfig } from 'next-auth'
 
 import { LoginSchema } from '@/schemas'
 import { getUserByEmail } from '@/data/user'
+import { DEFAULT_LOGIN_REDIRECT, authRoutes, publicRoutes } from './routes'
+import { locales } from './navigation'
+import { NextResponse } from 'next/server'
+
+const publicPagesPathnameRegex = RegExp(
+  `^(/(${locales.join('|')}))?(${[...publicRoutes, ...authRoutes]
+    .flatMap((p) => (p === '/' ? ['', '/'] : p))
+    .join('|')})/?$`,
+  'i'
+)
+
+const authPagesPathnameRegex = RegExp(
+  `^(/(${locales.join('|')}))?(${authRoutes
+    .flatMap((p) => (p === '/' ? ['', '/'] : p))
+    .join('|')})/?$`,
+  'i'
+)
 
 // возможно здесь идет установка нужных провайдеров (входов, github, google , credentials)
 export default {
@@ -35,5 +52,29 @@ export default {
         return null
       }
     })
-  ]
+  ],
+  callbacks: {
+    authorized: ({ auth, request }) => {
+      const { nextUrl } = request
+
+      // console.log(nextUrl.pathname)
+
+      const isAuthenticated = !!auth
+      const isPublicPage = publicPagesPathnameRegex.test(nextUrl.pathname)
+      const isAuthPage = authPagesPathnameRegex.test(nextUrl.pathname)
+
+      if (isAuthenticated && isAuthPage) {
+        return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+      }
+
+      if (!(isAuthenticated || isPublicPage)) {
+        return NextResponse.redirect(
+          // new URL(`/signin?callbackUrl=${nextUrl.pathname}`, nextUrl)
+          new URL('/auth/signin', nextUrl)
+        )
+      }
+
+      return isAuthenticated || isPublicPage
+    }
+  }
 } satisfies NextAuthConfig
