@@ -5,7 +5,7 @@ import Credentials from 'next-auth/providers/credentials'
 import type { NextAuthConfig } from 'next-auth'
 
 import { LoginSchema } from '@/schemas'
-import { getUserByEmail } from '@/data/user'
+import { getUserByEmail, getUserById } from '@/data/user'
 import { DEFAULT_LOGIN_REDIRECT, authRoutes, publicRoutes } from './routes'
 import { locales } from './navigation'
 import { NextResponse } from 'next/server'
@@ -54,7 +54,7 @@ export default {
     })
   ],
   callbacks: {
-    authorized: ({ auth, request }) => {
+    authorized: async ({ auth, request }) => {
       const { nextUrl } = request
 
       // console.log(nextUrl.pathname)
@@ -75,6 +75,32 @@ export default {
       }
 
       return isAuthenticated || isPublicPage
+    },
+    session: async ({ token, session }) => {
+      if (token.sub && session.user) {
+        session.user.id = token.sub
+      }
+
+      if (token.role && session.user) {
+      }
+      session.user.role = token.role
+
+      return session
+    },
+    jwt: async ({ token }) => {
+      if (!token.sub) {
+        return token
+      }
+
+      const existingUser = await getUserById(token.sub)
+
+      if (!existingUser) {
+        return token
+      }
+
+      token.role = existingUser.role
+
+      return token
     }
   }
 } satisfies NextAuthConfig
