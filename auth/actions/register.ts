@@ -6,12 +6,14 @@ import bcryptjs from 'bcryptjs'
 import { RegisterSchema } from '@/schemas'
 import { db } from '@/lib/db'
 import { getUserByEmail } from '@/data/user'
+import { getTranslations } from 'next-intl/server'
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values)
+  const t = await getTranslations('RegisterForm.registerErrorSuccessMessages')
 
   if (!validatedFields.success) {
-    return { error: 'Invalid fields!' }
+    return { error: t('invalidFields') }
   }
 
   const { email, name, password } = validatedFields.data
@@ -22,7 +24,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const existingUser = await getUserByEmail(email)
 
   if (existingUser) {
-    return { error: 'Email already in use!' }
+    return { error: t('emailAlreadyInUse') }
   }
 
   await db.user.create({
@@ -35,5 +37,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   // TODO: Send verification token email
 
-  return { success: 'User created!' }
+  return { success: t('success') }
 }

@@ -56,7 +56,8 @@ export default {
   callbacks: {
     authorized: ({ auth, request }) => {
       const { nextUrl } = request
-      console.log(nextUrl.pathname)
+
+      // console.log(nextUrl.pathname)
 
       const isAuthenticated = !!auth
       const isPublicPage = publicPagesPathnameRegex.test(nextUrl.pathname)

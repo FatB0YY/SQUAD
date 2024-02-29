@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { LocalSwitcher } from '@/components/local-switcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
+          <LocalSwitcher />
           {children}
         </NextIntlClientProvider>
       </body>

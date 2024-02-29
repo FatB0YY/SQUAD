@@ -24,12 +24,13 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { register } from '@/actions/register'
+import { useTranslations } from 'next-intl'
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>(undefined)
   const [success, setSuccess] = useState<string | undefined>(undefined)
-  undefined
   const [isPending, startTransition] = useTransition()
+  const t = useTranslations('RegisterForm')
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -55,8 +56,8 @@ export const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerLabel='Create an account'
-      backButtonLabel='Already have an account?'
+      headerLabel={t('headerLabel')}
+      backButtonLabel={t('backButtonLabel')}
       backButtonHref='signin'
       showSocial
     >
@@ -71,7 +72,7 @@ export const RegisterForm = () => {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t('namefield')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -88,7 +89,7 @@ export const RegisterForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('emailfield')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -106,7 +107,7 @@ export const RegisterForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('passwordfiled')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -128,7 +129,7 @@ export const RegisterForm = () => {
             className='w-full'
             disabled={isPending}
           >
-            Register
+            {t('submitbtn')}
           </Button>
         </form>
       </Form>
