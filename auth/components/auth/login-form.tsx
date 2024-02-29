@@ -24,12 +24,13 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
+import { useLocale } from 'next-intl'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>(undefined)
   const [success, setSuccess] = useState<string | undefined>(undefined)
-  undefined
   const [isPending, startTransition] = useTransition()
+  const activeLocale = useLocale()
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -56,7 +57,7 @@ export const LoginForm = () => {
     <CardWrapper
       headerLabel='Welcome back'
       backButtonLabel="Don't have an account?"
-      backButtonHref='/auth/register'
+      backButtonHref={`signup`}
       showSocial
     >
       <Form {...form}>

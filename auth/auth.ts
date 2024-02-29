@@ -10,51 +10,39 @@ export const {
   signIn,
   signOut
 } = NextAuth({
-  callbacks: {
-    // async signIn({ user }) {
-    //   // TODO: ИСПРАВИТЬ
-    //   if (!user.id) {
-    //     return false
-    //   }
+  // callbacks: {
+  //   async session({ token, session }) {
+  //     if (token.sub && session.user) {
+  //       session.user.id = token.sub
+  //     }
 
-    //   const existingUser = await getUserById(user.id)
+  //     if (token.role && session.user) {
+  //     }
+  //     session.user.role = token.role
 
-    //   if (!existingUser || !existingUser.emailVerified) {
-    //     return false
-    //   }
+  //     return session
+  //   },
+  //   async jwt({ token }) {
+  //     if (!token.sub) {
+  //       return token
+  //     }
 
-    //   return true
-    // },
-    async session({ token, session }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
+  //     const existingUser = await getUserById(token.sub)
 
-      if (token.role && session.user) {
-      }
-      session.user.role = token.role
+  //     if (!existingUser) {
+  //       return token
+  //     }
 
-      return session
-    },
-    async jwt({ token }) {
-      if (!token.sub) {
-        return token
-      }
+  //     token.role = existingUser.role
 
-      const existingUser = await getUserById(token.sub)
+  //     return token
+  //   }
+  // },
 
-      if (!existingUser) {
-        return token
-      }
-
-      token.role = existingUser.role
-
-      return token
-    }
-  },
   adapter: PrismaAdapter(db),
   session: {
     strategy: 'jwt'
   },
+
   ...authConfig
 })

@@ -16,7 +16,8 @@ export const publicRoutes = ['/']
  * Эти маршруты будут перенаправлять зарегистрированных пользователей на `DEFAULT_LOGIN_REDIRECT`
  * @type {string[]}
  */
-export const authRoutes = ['/auth/login', '/auth/register']
+// возможно нужно убрать "/auth" после добавления callback в пути
+export const authRoutes = ['/auth/signin', '/auth/signup']
 
 /**
  * the prefix for API authentication routes.

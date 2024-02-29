@@ -1,5 +1,6 @@
 'use client'
 
+import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 
 interface LoginButtonProps {
@@ -14,9 +15,10 @@ export const LoginButton = ({
   mode = 'redirect'
 }: LoginButtonProps) => {
   const router = useRouter()
+  const activeLocale = useLocale()
 
   const onClick = () => {
-    router.push('/auth/login')
+    router.push(`${activeLocale}/auth/signin`)
   }
 
   if (mode === 'modal') {

@@ -23,6 +23,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       // redirectTo: calbackUrl || DEFAULT_LOGIN_REDIRECT
       redirectTo: DEFAULT_LOGIN_REDIRECT
     })
+
+    return { success: 'Success!' }
   } catch (error) {
     console.error(error)
     if (error instanceof AuthError) {
