@@ -17,7 +17,7 @@ export const publicRoutes = ['/']
  * @type {string[]}
  */
 // возможно нужно убрать "/auth" после добавления callback в пути
-export const authRoutes = ['/auth/signin', '/auth/signup']
+export const authRoutes = ['/auth/signin', '/auth/signup', '/auth/error']
 
 /**
  * the prefix for API authentication routes.

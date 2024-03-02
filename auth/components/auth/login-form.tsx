@@ -6,6 +6,7 @@ import { useState, useTransition } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 
 import { LoginSchema } from '@/schemas'
 
@@ -24,14 +25,20 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 export const LoginForm = () => {
+  const t = useTranslations('LoginForm')
+
+  const searchParams = useSearchParams()
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? t('providerEmailError')
+      : ''
+
   const [error, setError] = useState<string | undefined>(undefined)
   const [success, setSuccess] = useState<string | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
-  const activeLocale = useLocale()
-  const t = useTranslations('LoginForm')
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -49,6 +56,8 @@ export const LoginForm = () => {
       // !server actions! - заменить на axios
       login(values).then((data) => {
         setError(data.error)
+
+        // TODO: Add when we add 2FA
         setSuccess(data.success)
       })
     })
@@ -104,7 +113,7 @@ export const LoginForm = () => {
               )}
             />
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
 
           <Button

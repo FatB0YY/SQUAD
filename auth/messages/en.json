@@ -1,7 +1,9 @@
 {
   "Home": {
     "text": "A simple authentication service",
-    "btn": "Sign in"
+    "btn": "Sign in",
+    "error": "Oops! Something went wrong...",
+    "backBtn": "Back to login"
   },
   "LoginForm": {
     "headerLabel": "Welcome back",
@@ -9,6 +11,7 @@
     "emailfield": "Email",
     "passwordfiled": "Password",
     "submitbtn": "Sign in",
+    "providerEmailError": "Email already in use with different provider!",
     "loginErrorSuccessMessages": {
       "success": "Success!",
       "invalidFields": "Invalid fields!",

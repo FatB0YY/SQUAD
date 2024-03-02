@@ -1,7 +1,9 @@
 {
   "Home": {
     "text": "Служба аутентификации",
-    "btn": "Войти"
+    "btn": "Войти",
+    "error": "Упс! Что-то пошло не так...",
+    "backBtn": "Вернуться к входу в систему"
   },
   "LoginForm": {
     "headerLabel": "Добро пожаловать",
@@ -9,6 +11,7 @@
     "emailfield": "Почта",
     "passwordfiled": "Пароль",
     "submitbtn": "Войти",
+    "providerEmailError": "Электронная почта уже используется у другого провайдера!",
     "loginErrorSuccessMessages": {
       "success": "Удачно!",
       "invalidFields": "Недопустимые поля!",
