@@ -13,6 +13,8 @@
     "submitbtn": "Войти",
     "providerEmailError": "Электронная почта уже используется у другого провайдера!",
     "loginErrorSuccessMessages": {
+      "confirmationEmailSent": "Письмо с подтверждением отправлено!",
+      "emailDoesNotExist": "Электронная почта не существует!",
       "success": "Удачно!",
       "invalidFields": "Недопустимые поля!",
       "invalidCredentials": "Неверные учетные данные!",
@@ -27,6 +29,7 @@
     "namefield": "Имя",
     "submitbtn": "Создать аккаунт",
     "registerErrorSuccessMessages": {
+      "emailsent": "Письмо с подтверждением отправлено!",
       "success": "Пользователь создан!",
       "invalidFields": "Недопустимые поля!",
       "emailAlreadyInUse": "Электронная почта уже используется!"

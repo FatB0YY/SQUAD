@@ -24,7 +24,6 @@ const authPagesPathnameRegex = RegExp(
   'i'
 )
 
-// возможно здесь идет установка нужных провайдеров (входов, github, google , credentials)
 export default {
   providers: [
     Google({
@@ -37,7 +36,9 @@ export default {
       clientSecret: process.env.GITHUB_CLIENT_SECRET
     }),
     Credentials({
+      // еще раз проверяем правильность заполнения полей
       async authorize(credentials, request) {
+        console.log('------ providers Credentials authorize ------')
         const validatedFileds = LoginSchema.safeParse(credentials)
 
         if (validatedFileds.success) {
@@ -58,12 +59,34 @@ export default {
             return user
           }
         }
+
         return null
       }
     })
   ],
   callbacks: {
+    signIn: async ({ user, account }) => {
+      console.log('------ callbacks signIn ------')
+
+      // Разрешить OAuth без проверки электронной почты
+      if (account?.provider !== 'credentials') {
+        return true
+      }
+
+      const existingUser = await getUserById(user.id as string)
+
+      // Запретить вход без подтверждения электронной почты
+      if (!existingUser?.emailVerified) {
+        return false
+      }
+
+      // TODO: Add 2FA check
+
+      return true
+    },
     authorized: async ({ auth, request }) => {
+      console.log('------ callbacks authorized ------')
+
       const { nextUrl } = request
 
       // console.log(nextUrl.pathname)
@@ -72,10 +95,12 @@ export default {
       const isPublicPage = publicPagesPathnameRegex.test(nextUrl.pathname)
       const isAuthPage = authPagesPathnameRegex.test(nextUrl.pathname)
 
+      // редирект если isAuthenticated и это isAuthPage
       if (isAuthenticated && isAuthPage) {
         return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
       }
 
+      // редирект если не isAuthenticated или это не isPublicPage
       if (!(isAuthenticated || isPublicPage)) {
         return NextResponse.redirect(
           // new URL(`/signin?callbackUrl=${nextUrl.pathname}`, nextUrl)
@@ -86,6 +111,8 @@ export default {
       return isAuthenticated || isPublicPage
     },
     session: async ({ token, session }) => {
+      console.log('------ callbacks session ------')
+
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
@@ -97,6 +124,8 @@ export default {
       return session
     },
     jwt: async ({ token }) => {
+      console.log('------ callbacks jwt ------')
+
       if (!token.sub) {
         return token
       }

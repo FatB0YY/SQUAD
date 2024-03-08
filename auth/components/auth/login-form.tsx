@@ -28,6 +28,7 @@ import { login } from '@/actions/login'
 import { useTranslations } from 'next-intl'
 
 export const LoginForm = () => {
+  console.log('--------------5-------------- client')
   const t = useTranslations('LoginForm')
 
   const searchParams = useSearchParams()
@@ -56,8 +57,6 @@ export const LoginForm = () => {
       // !server actions! - заменить на axios
       login(values).then((data) => {
         setError(data.error)
-
-        // TODO: Add when we add 2FA
         setSuccess(data.success)
       })
     })

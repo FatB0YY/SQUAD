@@ -13,6 +13,8 @@
     "submitbtn": "Sign in",
     "providerEmailError": "Email already in use with different provider!",
     "loginErrorSuccessMessages": {
+      "confirmationEmailSent": "Confirmation email sent!",
+      "emailDoesNotExist": "EMail does not exist!",
       "success": "Success!",
       "invalidFields": "Invalid fields!",
       "invalidCredentials": "Invalid credentials!",
@@ -27,6 +29,7 @@
     "namefield": "Name",
     "submitbtn": "Sign up",
     "registerErrorSuccessMessages": {
+      "emailsent": "Confirmation email sent!",
       "success": "User created!",
       "invalidFields": "Invalid fields!",
       "emailAlreadyInUse": "Email already in use!"

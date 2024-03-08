@@ -1,14 +1,18 @@
 'use server'
 
 import * as z from 'zod'
-
-import { signIn, signOut } from '@/auth'
-import { LoginSchema } from '@/schemas'
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { AuthError } from 'next-auth'
 import { getTranslations } from 'next-intl/server'
 
+import { signIn } from '@/auth'
+import { LoginSchema } from '@/schemas'
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import { getUserByEmail } from '@/data/user'
+import { generateVerificationToken } from '@/lib/tokens'
+
 export const login = async (values: z.infer<typeof LoginSchema>) => {
+  console.log('------ server-actions login ------')
+
   const validatedFields = LoginSchema.safeParse(values)
   const t = await getTranslations('LoginForm.loginErrorSuccessMessages')
 
@@ -17,6 +21,20 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   const { email, password } = validatedFields.data
+
+  const existingUser = await getUserByEmail(email)
+
+  if (!existingUser || !existingUser.email || !existingUser.password) {
+    return { error: t('emailDoesNotExist') }
+  }
+
+  if (!existingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(
+      existingUser.email
+    )
+
+    return { success: t('confirmationEmailSent') }
+  }
 
   try {
     await signIn('credentials', {
