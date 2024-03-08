@@ -34,5 +34,17 @@
       "invalidFields": "Недопустимые поля!",
       "emailAlreadyInUse": "Электронная почта уже используется!"
     }
+  },
+  "NewVerificationForm": {
+    "headerLabel": "Подтверждение вашей проверки",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "missingToken": "Отсутствует токен!",
+    "somethingWentWrong": "Что-то пошло не так!"
+  },
+  "NewVerification": {
+    "tokenDoesNotExists": "Токен не существует!",
+    "tokenDoesExpired": "Срок действия токена истек!",
+    "emailDoesNotExist": "Электронная почта не существует!",
+    "emailVerified": "Электронная почта подтверждена!"
   }
 }

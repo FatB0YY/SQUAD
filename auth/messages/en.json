@@ -34,5 +34,17 @@
       "invalidFields": "Invalid fields!",
       "emailAlreadyInUse": "Email already in use!"
     }
+  },
+  "NewVerificationForm": {
+    "headerLabel": "Confirming your verification",
+    "backButtonLabel": "Back to login",
+    "missingToken": "Missing token!",
+    "somethingWentWrong": "Something went wrong!"
+  },
+  "NewVerification": {
+    "tokenDoesNotExists": "Token does not exists!",
+    "tokenDoesExpired": "Token does expired!",
+    "emailDoesNotExist": "Email does not exist!",
+    "emailVerified": "Email verified!"
   }
 }

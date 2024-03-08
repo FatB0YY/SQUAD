@@ -118,14 +118,15 @@ export default {
       }
 
       if (token.role && session.user) {
+        session.user.role = token.role
       }
-      session.user.role = token.role
 
       return session
     },
     jwt: async ({ token }) => {
       console.log('------ callbacks jwt ------')
 
+      // означает что вышел из системы
       if (!token.sub) {
         return token
       }
