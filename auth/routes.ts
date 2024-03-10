@@ -17,7 +17,13 @@ export const publicRoutes = ['/', '/auth/new-verification']
  * @type {string[]}
  */
 // возможно нужно убрать "/auth" после добавления callback в пути
-export const authRoutes = ['/auth/signin', '/auth/signup', '/auth/error']
+export const authRoutes = [
+  '/auth/signin',
+  '/auth/signup',
+  '/auth/error',
+  '/auth/reset',
+  '/auth/new-password'
+]
 
 /**
  * the prefix for API authentication routes.

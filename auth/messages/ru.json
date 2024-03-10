@@ -6,9 +6,10 @@
     "backBtn": "Вернуться к входу в систему"
   },
   "LoginForm": {
+    "forgotPassword": "Забыли пароль?",
     "headerLabel": "Добро пожаловать",
     "backButtonLabel": "У вас нет учетной записи?",
-    "emailfield": "Почта",
+    "emailfield": "Электронная почта",
     "passwordfiled": "Пароль",
     "submitbtn": "Войти",
     "providerEmailError": "Электронная почта уже используется у другого провайдера!",
@@ -46,5 +47,30 @@
     "tokenDoesExpired": "Срок действия токена истек!",
     "emailDoesNotExist": "Электронная почта не существует!",
     "emailVerified": "Электронная почта подтверждена!"
+  },
+  "ResetForm": {
+    "headerLabel": "Забыли пароль?",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "emailfield": "Электронная почта",
+    "resetbtn": "Отправить письмо для сброса"
+  },
+  "ResetServerAction": {
+    "invalidEmail": "Неверный адрес электронной почты!",
+    "emailNotFound": "Электронная почта не найдена!",
+    "success": "Письмо для сброса отправлено!"
+  },
+  "NewPasswordForm": {
+    "headerLabel": "Введите новый пароль",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "passwordfield": "Пароль",
+    "newpasswordbtn": "Сброс пароля"
+  },
+  "NewPasswordServerAction": {
+    "missingtoken": "Отсутствует токен!",
+    "invalidfields": "Неверные поля!",
+    "invalidtoken": "Неверный токен!",
+    "tokenhasexpired": "Срок действия токена истек!",
+    "emaildoesnotexist": "Электронная почта не существует!",
+    "success": "Пароль обновлен!"
   }
 }

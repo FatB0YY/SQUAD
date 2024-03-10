@@ -14,6 +14,7 @@ export const {
     error: '/auth/error'
   },
   events: {
+    // вызывается во время использования OAuth
     async linkAccount({ user }) {
       console.log('------ events linkAccount ------')
 

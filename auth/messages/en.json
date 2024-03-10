@@ -6,6 +6,7 @@
     "backBtn": "Back to login"
   },
   "LoginForm": {
+    "forgotPassword": "Forgot password?",
     "headerLabel": "Welcome back",
     "backButtonLabel": "Don't have an account?",
     "emailfield": "Email",
@@ -46,5 +47,30 @@
     "tokenDoesExpired": "Token does expired!",
     "emailDoesNotExist": "Email does not exist!",
     "emailVerified": "Email verified!"
+  },
+  "ResetForm": {
+    "headerLabel": "Forgot your password?",
+    "backButtonLabel": "Back to login",
+    "emailfield": "Email",
+    "resetbtn": "Send reset email"
+  },
+  "ResetServerAction": {
+    "invalidEmail": "Invalid email!",
+    "emailNotFound": "Email not found!",
+    "success": "Reset email sent!"
+  },
+  "NewPasswordForm": {
+    "headerLabel": "Enter a new password",
+    "backButtonLabel": "Back to login",
+    "passwordfield": "Password",
+    "newpasswordbtn": "Reset password"
+  },
+  "NewPasswordServerAction": {
+    "missingtoken": "Missing token!",
+    "invalidfields": "Invalid fields!",
+    "invalidtoken": "Invalid token!",
+    "tokenhasexpired": "Token has expired!",
+    "emaildoesnotexist": "Email does not exist!",
+    "success": "Password updated!"
   }
 }

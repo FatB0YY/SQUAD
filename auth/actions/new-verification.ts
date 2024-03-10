@@ -6,6 +6,8 @@ import { getVerificationTokenByToken } from '@/data/verification-token'
 import { getTranslations } from 'next-intl/server'
 
 export const newVerification = async (token: string) => {
+  console.log('------ server-actions newVerification ------')
+
   const t = await getTranslations('NewVerification')
   const existingToken = await getVerificationTokenByToken(token)
 
