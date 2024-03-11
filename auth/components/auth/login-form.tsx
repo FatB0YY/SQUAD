@@ -34,6 +34,7 @@ export const LoginForm = () => {
       ? t('providerEmailError')
       : ''
 
+  const [showTwoFactor, setShowTwoFactor] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
   const [success, setSuccess] = useState<string | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
@@ -52,10 +53,26 @@ export const LoginForm = () => {
 
     startTransition(() => {
       // !server actions! - заменить на axios
-      login(values).then((data) => {
-        setError(data?.error)
-        setSuccess(data?.success)
-      })
+      login(values)
+        .then((data) => {
+          if (data?.error) {
+            form.reset()
+            setError(data.error)
+          }
+
+          if (data?.success) {
+            form.reset()
+            setSuccess(data.success)
+          }
+
+          if (data?.twoFactor) {
+            setShowTwoFactor(true)
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+          setError(t('loginErrorSuccessMessages.somethingWentWrong'))
+        })
     })
   }
 
@@ -72,50 +89,73 @@ export const LoginForm = () => {
           className='space-y-6'
         >
           <div className='space-y-4'>
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('emailfield')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder='john.doe@example.com'
-                      type='email'
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('passwordfiled')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder='********'
-                      type='password'
-                    />
-                  </FormControl>
-                  <Button
-                    size='sm'
-                    variant='link'
-                    asChild
-                    className='px-0 font-normal'
-                  >
-                    <Link href='/auth/reset'>{t('forgotPassword')}</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {showTwoFactor && (
+              <FormField
+                control={form.control}
+                name='twofacode'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('twofactorcode')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder='123456'
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {!showTwoFactor && (
+              <>
+                <FormField
+                  control={form.control}
+                  name='email'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('emailfield')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder='john.doe@example.com'
+                          type='email'
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='password'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('passwordfiled')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder='********'
+                          type='password'
+                        />
+                      </FormControl>
+                      <Button
+                        size='sm'
+                        variant='link'
+                        asChild
+                        className='px-0 font-normal'
+                      >
+                        <Link href='/auth/reset'>{t('forgotPassword')}</Link>
+                      </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
@@ -125,7 +165,7 @@ export const LoginForm = () => {
             className='w-full'
             disabled={isPending}
           >
-            {t('submitbtn')}
+            {showTwoFactor ? t('confirmbtn') : t('submitbtn')}
           </Button>
         </form>
       </Form>

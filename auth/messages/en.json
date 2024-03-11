@@ -6,6 +6,8 @@
     "backBtn": "Back to login"
   },
   "LoginForm": {
+    "confirmbtn": "Confirm",
+    "twofactorcode": "Two Factor Code",
     "forgotPassword": "Forgot password?",
     "headerLabel": "Welcome back",
     "backButtonLabel": "Don't have an account?",
@@ -14,6 +16,8 @@
     "submitbtn": "Sign in",
     "providerEmailError": "Email already in use with different provider!",
     "loginErrorSuccessMessages": {
+      "codeexpired": "Code expired!",
+      "invalidcode": "Invalid code!",
       "confirmationEmailSent": "Confirmation email sent!",
       "emailDoesNotExist": "EMail does not exist!",
       "success": "Success!",

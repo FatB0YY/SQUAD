@@ -9,6 +9,8 @@ import { LoginSchema } from '@/schemas'
 import { getUserByEmail, getUserById } from '@/data/user'
 import { DEFAULT_LOGIN_REDIRECT, authRoutes, publicRoutes } from '@/routes'
 import { locales } from '@/navigation'
+import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation'
+import { db } from '@/lib/db'
 
 const publicPagesPathnameRegex = RegExp(
   `^(/(${locales.join('|')}))?(${[...publicRoutes, ...authRoutes]
@@ -80,7 +82,20 @@ export default {
         return false
       }
 
-      // TODO: Add 2FA check
+      if (existingUser.isTwoFactorEnable) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id
+        )
+
+        if (!twoFactorConfirmation) {
+          return false
+        }
+
+        // Удалить 2FA при след входе
+        await db.twoFactorConfirmation.delete({
+          where: { id: twoFactorConfirmation.id }
+        })
+      }
 
       return true
     },

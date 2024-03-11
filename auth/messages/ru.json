@@ -6,6 +6,8 @@
     "backBtn": "Вернуться к входу в систему"
   },
   "LoginForm": {
+    "confirmbtn": "Подтвердить",
+    "twofactorcode": "Двухфакторный код",
     "forgotPassword": "Забыли пароль?",
     "headerLabel": "Добро пожаловать",
     "backButtonLabel": "У вас нет учетной записи?",
@@ -14,6 +16,8 @@
     "submitbtn": "Войти",
     "providerEmailError": "Электронная почта уже используется у другого провайдера!",
     "loginErrorSuccessMessages": {
+      "codeexpired": "Срок действия кода истек!",
+      "invalidcode": "Неверный код!",
       "confirmationEmailSent": "Письмо с подтверждением отправлено!",
       "emailDoesNotExist": "Электронная почта не существует!",
       "success": "Удачно!",
