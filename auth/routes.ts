@@ -6,7 +6,7 @@
  * Эти маршруты не требуют аутентификации
  * @type {string[]}
  */
-export const publicRoutes = ['/']
+export const publicRoutes = ['/', '/auth/new-verification']
 
 /**
  * An array of routes that are used for authentication
@@ -17,7 +17,13 @@ export const publicRoutes = ['/']
  * @type {string[]}
  */
 // возможно нужно убрать "/auth" после добавления callback в пути
-export const authRoutes = ['/auth/signin', '/auth/signup']
+export const authRoutes = [
+  '/auth/signin',
+  '/auth/signup',
+  '/auth/error',
+  '/auth/reset',
+  '/auth/new-password'
+]
 
 /**
  * the prefix for API authentication routes.

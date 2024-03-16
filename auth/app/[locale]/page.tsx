@@ -30,7 +30,7 @@ export default async function Home() {
             font.className
           )}
         >
-          🔐 Auth
+          🔐
         </h1>
         <p className='text-white text-lg'>{t('text')}</p>
 

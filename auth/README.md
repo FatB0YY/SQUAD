@@ -96,6 +96,10 @@ npx prisma studio
 
 Проект использует [Next-auth v5 (Auth.js)](https://authjs.dev/) для аутентификации и авторизации пользователей. Для интеграции Auth.js с базой данных Prisma используется [Prisma Adapter](https://authjs.dev/reference/adapter/prisma), который обеспечивает простую и надежную связь между Auth.js и Prisma, упрощая процесс аутентификации и управления пользователями.
 
+`auth.ts` - файл содержит экспорт основного конфига (NextAuth) авторизации.
+
+`middleware.ts` - файл содержит экспорт основного конфига (NextAuth) авторизации.
+
 Список `publicRoutes`, `authRoutes` и `apiAuthPrefix` находится в коревом файле routes.ts!
 
 ## Internationalization for Next.js (next-intl)
@@ -116,3 +120,5 @@ export default function Index() {
   return <h1>{t('title')}</h1>
 }
 ```
+
+## Почта Resend

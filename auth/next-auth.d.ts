@@ -6,6 +6,8 @@ import { UserRole } from '@prisma/client'
 declare module 'next-auth' {
   interface User {
     role: UserRole
+    isTwoFactorEnable: boolean
+    isOAuth: boolean
   }
 
   interface Session extends DefaultSession {
@@ -16,5 +18,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     role: UserRole
+    isTwoFactorEnable: boolean
+    isOAuth: boolean
   }
 }

@@ -1,15 +1,25 @@
 {
   "Home": {
     "text": "Служба аутентификации",
-    "btn": "Войти"
+    "btn": "Войти",
+    "error": "Упс! Что-то пошло не так...",
+    "backBtn": "Вернуться к входу в систему"
   },
   "LoginForm": {
+    "confirmbtn": "Подтвердить",
+    "twofactorcode": "Двухфакторный код",
+    "forgotPassword": "Забыли пароль?",
     "headerLabel": "Добро пожаловать",
     "backButtonLabel": "У вас нет учетной записи?",
-    "emailfield": "Почта",
+    "emailfield": "Электронная почта",
     "passwordfiled": "Пароль",
     "submitbtn": "Войти",
+    "providerEmailError": "Электронная почта уже используется у другого провайдера!",
     "loginErrorSuccessMessages": {
+      "codeexpired": "Срок действия кода истек!",
+      "invalidcode": "Неверный код!",
+      "confirmationEmailSent": "Письмо с подтверждением отправлено!",
+      "emailDoesNotExist": "Электронная почта не существует!",
       "success": "Удачно!",
       "invalidFields": "Недопустимые поля!",
       "invalidCredentials": "Неверные учетные данные!",
@@ -24,9 +34,53 @@
     "namefield": "Имя",
     "submitbtn": "Создать аккаунт",
     "registerErrorSuccessMessages": {
+      "emailsent": "Письмо с подтверждением отправлено!",
       "success": "Пользователь создан!",
       "invalidFields": "Недопустимые поля!",
       "emailAlreadyInUse": "Электронная почта уже используется!"
     }
+  },
+  "NewVerificationForm": {
+    "headerLabel": "Подтверждение вашей проверки",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "missingToken": "Отсутствует токен!",
+    "somethingWentWrong": "Что-то пошло не так!"
+  },
+  "NewVerification": {
+    "tokenDoesNotExists": "Токен не существует!",
+    "tokenDoesExpired": "Срок действия токена истек!",
+    "emailDoesNotExist": "Электронная почта не существует!",
+    "emailVerified": "Электронная почта подтверждена!"
+  },
+  "ResetForm": {
+    "headerLabel": "Забыли пароль?",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "emailfield": "Электронная почта",
+    "resetbtn": "Отправить письмо для сброса"
+  },
+  "ResetServerAction": {
+    "invalidEmail": "Неверный адрес электронной почты!",
+    "emailNotFound": "Электронная почта не найдена!",
+    "success": "Письмо для сброса отправлено!"
+  },
+  "NewPasswordForm": {
+    "headerLabel": "Введите новый пароль",
+    "backButtonLabel": "Вернуться на страницу авторизации",
+    "passwordfield": "Пароль",
+    "newpasswordbtn": "Сброс пароля"
+  },
+  "NewPasswordServerAction": {
+    "missingtoken": "Отсутствует токен!",
+    "invalidfields": "Неверные поля!",
+    "invalidtoken": "Неверный токен!",
+    "tokenhasexpired": "Срок действия токена истек!",
+    "emaildoesnotexist": "Электронная почта не существует!",
+    "success": "Пароль обновлен!"
+  },
+  "UserButton": {
+    "logout": "Выйти"
+  },
+  "RoleGate": {
+    "error": "У вас нет разрешения на просмотр этого контента!"
   }
 }
