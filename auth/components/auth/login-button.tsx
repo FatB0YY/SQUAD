@@ -18,7 +18,7 @@ export const LoginButton = ({
   const activeLocale = useLocale()
 
   const onClick = () => {
-    router.push(`${activeLocale}/auth/signin`)
+    router.push('/auth/signin')
   }
 
   if (mode === 'modal') {

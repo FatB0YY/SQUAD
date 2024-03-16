@@ -25,7 +25,6 @@ import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
 
 export const LoginForm = () => {
-  console.log('--------------5-------------- client')
   const t = useTranslations('LoginForm')
 
   const searchParams = useSearchParams()

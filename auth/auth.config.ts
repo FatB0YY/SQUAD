@@ -11,6 +11,7 @@ import { DEFAULT_LOGIN_REDIRECT, authRoutes, publicRoutes } from '@/routes'
 import { locales } from '@/navigation'
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation'
 import { db } from '@/lib/db'
+import { getAccountByUserId } from './data/account'
 
 const publicPagesPathnameRegex = RegExp(
   `^(/(${locales.join('|')}))?(${[...publicRoutes, ...authRoutes]
@@ -40,7 +41,6 @@ export default {
     Credentials({
       // еще раз проверяем правильность заполнения полей
       async authorize(credentials, request) {
-        console.log('------ providers Credentials authorize ------')
         const validatedFileds = LoginSchema.safeParse(credentials)
 
         if (validatedFileds.success) {
@@ -68,8 +68,6 @@ export default {
   ],
   callbacks: {
     signIn: async ({ user, account }) => {
-      console.log('------ callbacks signIn ------')
-
       // Разрешить OAuth без проверки электронной почты
       if (account?.provider !== 'credentials') {
         return true
@@ -100,11 +98,7 @@ export default {
       return true
     },
     authorized: async ({ auth, request }) => {
-      console.log('------ callbacks authorized ------')
-
       const { nextUrl } = request
-
-      // console.log(nextUrl.pathname)
 
       const isAuthenticated = !!auth
       const isPublicPage = publicPagesPathnameRegex.test(nextUrl.pathname)
@@ -126,8 +120,6 @@ export default {
       return isAuthenticated || isPublicPage
     },
     session: async ({ token, session }) => {
-      console.log('------ callbacks session ------')
-
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
@@ -136,23 +128,33 @@ export default {
         session.user.role = token.role
       }
 
+      if (session.user) {
+        session.user.isTwoFactorEnable = token.isTwoFactorEnable
+      }
+
+      if (session.user) {
+        session.user.name = token.name
+        session.user.email = token.email as string
+        session.user.isOAuth = token.isOAuth
+      }
+
       return session
     },
     jwt: async ({ token }) => {
-      console.log('------ callbacks jwt ------')
-
       // означает что вышел из системы
-      if (!token.sub) {
-        return token
-      }
+      if (!token.sub) return token
 
       const existingUser = await getUserById(token.sub)
 
-      if (!existingUser) {
-        return token
-      }
+      if (!existingUser) return token
 
+      const existingAccount = await getAccountByUserId(existingUser.id)
+
+      token.isOAuth = !!existingAccount
+      token.name = existingUser.name
+      token.email = existingUser.email
       token.role = existingUser.role
+      token.isTwoFactorEnable = existingUser.isTwoFactorEnable
 
       return token
     }

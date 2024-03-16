@@ -24,8 +24,6 @@ import { FormSuccess } from '@/components/form-success'
 import { newPassword } from '@/actions/new-password'
 
 export const NewPasswordForm = () => {
-  console.log('--------------7-------------- client')
-
   const t = useTranslations('NewPasswordForm')
 
   const [error, setError] = useState<string | undefined>(undefined)

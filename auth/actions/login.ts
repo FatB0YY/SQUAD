@@ -15,8 +15,6 @@ import { db } from '@/lib/db'
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
-  console.log('------ server-actions login ------')
-
   const validatedFields = LoginSchema.safeParse(values)
   const t = await getTranslations('LoginForm.loginErrorSuccessMessages')
 

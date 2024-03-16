@@ -23,8 +23,6 @@ import { FormSuccess } from '@/components/form-success'
 import { reset } from '@/actions/reset'
 
 export const ResetForm = () => {
-  console.log('--------------7-------------- client')
-
   const t = useTranslations('ResetForm')
 
   const [error, setError] = useState<string | undefined>(undefined)

@@ -19,7 +19,7 @@
       "codeexpired": "Code expired!",
       "invalidcode": "Invalid code!",
       "confirmationEmailSent": "Confirmation email sent!",
-      "emailDoesNotExist": "EMail does not exist!",
+      "emailDoesNotExist": "Email does not exist!",
       "success": "Success!",
       "invalidFields": "Invalid fields!",
       "invalidCredentials": "Invalid credentials!",
@@ -76,5 +76,11 @@
     "tokenhasexpired": "Token has expired!",
     "emaildoesnotexist": "Email does not exist!",
     "success": "Password updated!"
+  },
+  "UserButton": {
+    "logout": "Logout"
+  },
+  "RoleGate": {
+    "error": "You do not have permission to view this content!"
   }
 }

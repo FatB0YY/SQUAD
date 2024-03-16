@@ -31,7 +31,7 @@ export const LocalSwitcher = () => {
       <SelectTrigger className='w-[180px]'>
         <SelectValue placeholder='Theme' />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent side='left'>
         <SelectItem value='ru'>Русский</SelectItem>
         <SelectItem value='en'>English</SelectItem>
       </SelectContent>

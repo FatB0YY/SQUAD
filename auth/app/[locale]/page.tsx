@@ -12,7 +12,6 @@ const font = Poppins({
 
 export default async function Home() {
   const t = await getTranslations('Home')
-  console.log('--------------3--------------')
 
   const gradientClass =
     'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800'
