@@ -1,5 +1,27 @@
 # Authentication
 
+## Setup .env file
+
+```js
+DATABASE_URL=
+
+AUTH_SECRET=
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+RESEND_API_KEY=
+
+NEXTAUTH_URL=
+NEXTAUTH_URL=
+
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+```
+
 ## Библиотека компонентов и CSS-фреймворки
 
 - [Shadcn UI](https://ui.shadcn.com/) - Это набор повторно используемых компонентов, которые Вы можете копировать и вставлять в свои приложения. Это не библиотека и не npm пакет! Это именно логика компонентов.
