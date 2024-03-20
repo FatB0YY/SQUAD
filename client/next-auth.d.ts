@@ -22,3 +22,5 @@ declare module 'next-auth/jwt' {
     isOAuth: boolean
   }
 }
+
+// authorize?: ((credentials: Partial<Record<string, unknown>>, request: Request) => Awaitable<User | null>) | undefined

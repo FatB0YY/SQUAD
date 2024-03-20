@@ -6,11 +6,11 @@
  * Эти маршруты не требуют аутентификации
  * @type {string[]}
  */
-export const publicRoutes = ['/', '/auth/new-verification']
+export const publicRoutes = ['/', '/auth/new-verification', '/api/uploadthing']
 
 /**
  * An array of routes that are used for authentication
- * These routes will redirect logged in users /settings
+ * These routes will redirect logged in users /servers
  * ---
  * Массив маршрутов, которые используются для аутентификации
  * Эти маршруты будут перенаправлять зарегистрированных пользователей на `DEFAULT_LOGIN_REDIRECT`
@@ -43,4 +43,4 @@ export const apiAuthPrefix = '/api/auth'
  * Путь перенаправления по умолчанию после входа в систему
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = '/settings'
+export const DEFAULT_LOGIN_REDIRECT = '/servers'

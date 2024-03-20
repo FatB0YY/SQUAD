@@ -41,6 +41,14 @@ export const Navbar = () => {
         <Button
           asChild
           variant={
+            pathname === `/${activeLocale}/servers` ? 'default' : 'outline'
+          }
+        >
+          <Link href='/servers'>Servers</Link>
+        </Button>
+        <Button
+          asChild
+          variant={
             pathname === `/${activeLocale}/settings` ? 'default' : 'outline'
           }
         >

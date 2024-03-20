@@ -16,6 +16,10 @@ const intlMiddleware = createIntlMiddleware({
 })
 
 export default authMiddleware((req) => {
+  console.log(
+    '------------ после authMiddleware и до  intlMiddleware ------------'
+  )
+
   return intlMiddleware(req)
 })
 

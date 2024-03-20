@@ -41,6 +41,7 @@ export default {
     Credentials({
       // еще раз проверяем правильность заполнения полей
       async authorize(credentials, request) {
+        console.log('------------ providers Credentials authorize ------------')
         const validatedFileds = LoginSchema.safeParse(credentials)
 
         if (validatedFileds.success) {
@@ -100,6 +101,8 @@ export default {
     authorized: async ({ auth, request }) => {
       const { nextUrl } = request
 
+      console.log('------------ callbacks authorized ------------')
+
       const isAuthenticated = !!auth
       const isPublicPage = publicPagesPathnameRegex.test(nextUrl.pathname)
       const isAuthPage = authPagesPathnameRegex.test(nextUrl.pathname)
@@ -120,6 +123,8 @@ export default {
       return isAuthenticated || isPublicPage
     },
     session: async ({ token, session }) => {
+      console.log('------------ callbacks session ------------')
+
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
@@ -143,6 +148,8 @@ export default {
     jwt: async ({ token }) => {
       // означает что вышел из системы
       if (!token.sub) return token
+
+      console.log('------------ callbacks jwt ------------')
 
       const existingUser = await getUserById(token.sub)
 

@@ -70,3 +70,12 @@ export const SettingsSchema = z
       path: ['password']
     }
   )
+
+export const ServerInitialSchema = z.object({
+  name: z.string().min(1, {
+    message: 'Server name is required.'
+  }),
+  image: z.string().min(1, {
+    message: 'Server image is required.'
+  })
+})
