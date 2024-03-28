@@ -38,6 +38,8 @@ export const FormInitialServer = () => {
 
   const router = useRouter()
 
+  const isLoading = form.formState.isSubmitting || isPending
+
   const onSubmit = (values: z.infer<typeof ServerInitialSchema>) => {
     startTransition(() => {
       initialServer(values)
@@ -95,7 +97,7 @@ export const FormInitialServer = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    disabled={isPending}
+                    disabled={isLoading}
                     className='bg-zinc-300/50 border-0 peer-focus-visible:ring-0 text-black focus-visible:ring-offset-0'
                     placeholder='Enter server name'
                     {...field}
@@ -113,7 +115,7 @@ export const FormInitialServer = () => {
         <DialogFooter className='bg-gray-100 px-6 py-4'>
           <Button
             variant='primary'
-            disabled={isPending}
+            disabled={isLoading}
             type='submit'
           >
             Create

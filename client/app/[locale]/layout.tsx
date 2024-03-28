@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { auth } from '@/auth'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
+import { ModalProvider } from '@/components/providers/modal-provider'
 
 import './globals.css'
 
@@ -44,6 +45,7 @@ export default async function RootLayout({
               enableSystem={false}
               storageKey='squad-theme'
             >
+              <ModalProvider />
               {children}
             </ThemeProvider>
           </body>

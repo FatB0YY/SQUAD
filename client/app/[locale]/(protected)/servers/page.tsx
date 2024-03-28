@@ -1,8 +1,7 @@
-import { redirect } from 'next/navigation'
-
 import { auth } from '@/auth'
 import { InitialModal } from '@/components/modals/initial-modal'
 import { db } from '@/lib/db'
+import { redirect } from '@/navigation'
 
 const ServerPage = async () => {
   const session = await auth()
