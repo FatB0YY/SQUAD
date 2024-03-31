@@ -44,7 +44,7 @@ model User {
   
   servers            Server[]
   members            Member[]
-  channels           Chennel[]
+  channels           Channel[]
 
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
@@ -54,13 +54,13 @@ model Server {
   id                 String               @id @default(cuid())
   name               String
   image              String               @db.Text
-  inviteCode         String               @db.Text
+  inviteCode         String               @unique
 
   userId             String
   user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   members            Member[]
-  channels           Chennel[]
+  channels           Channel[]
 
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
@@ -97,7 +97,7 @@ enum ChannelType {
   VIDEO
 }
 
-model Chennel {
+model Channel {
   id                 String               @id @default(cuid())
   name               String
   type               ChannelType          @default(TEXT)
