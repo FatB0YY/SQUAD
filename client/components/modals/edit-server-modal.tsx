@@ -1,7 +1,7 @@
 'use client'
 
 import * as z from 'zod'
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
@@ -26,52 +26,55 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FileUpload } from '@/components/squad/file-upload'
 import { useModal } from '@/hooks/store/use-modal-store'
-import { CreateServerSchema } from '@/schemas'
+import { EditServerSchema } from '@/schemas'
 
-import { createServer } from '@/actions/create-server'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
+import { editServer } from '@/actions/edit-server'
 
-export const CreateServerModal = () => {
+export const EditServerModal = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>(undefined)
-  const [success, setSuccess] = useState<string | undefined>(undefined)
 
-  const { isOpen, onClose, type } = useModal()
+  const { isOpen, onClose, type, data, onOpen, setNewData } = useModal()
   const router = useRouter()
 
-  const isModalOpen = isOpen && type === 'createServer'
+  const isModalOpen = isOpen && type === 'editServer'
+  const { server } = data
 
   const form = useForm({
-    resolver: zodResolver(CreateServerSchema),
+    resolver: zodResolver(EditServerSchema),
     defaultValues: {
-      name: '',
-      imageUrl: ''
+      name: server?.name || '',
+      imageUrl: server?.image || ''
     }
   })
 
+  useEffect(() => {
+    if (server) {
+      form.setValue('name', server.name)
+      form.setValue('imageUrl', server.image)
+    }
+  }, [server, form])
+
   const isLoading = form.formState.isSubmitting || isPending
 
-  const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
+  const onSubmit = async (values: z.infer<typeof EditServerSchema>) => {
     startTransition(() => {
-      createServer()
-      // createServer(values)
-      // .then((data) => {
-      //   if (data?.error) {
-      //     setError(data.error)
-      //   }
-
-      //   if (data?.success) {
-      //     setSuccess(data.success)
-
-      //     form.reset()
-      //     router.refresh()
-      //     onClose()
-      //   }
-      // })
-      // .catch((error) => {
-      //   console.error('Error:', error)
-      // })
+      editServer(values, server.id)
+        .then((data) => {
+          if ('error' in data) {
+            setError(data.error)
+          } else {
+            setNewData('editServer', { server: data })
+            form.reset()
+            router.refresh()
+            onClose()
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+        })
     })
   }
 
@@ -141,14 +144,13 @@ export const CreateServerModal = () => {
               />
 
               <FormError message={error} />
-              <FormSuccess message={success} />
             </div>
             <DialogFooter className='bg-gray-100 px-6 py-4'>
               <Button
                 variant='primary'
                 disabled={isLoading}
               >
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>

@@ -30,10 +30,6 @@ export const InviteModal = () => {
   const isModalOpen = isOpen && type === 'invite'
   const inviteUrl = `${origin}/invite/${server?.inviteCode}`
 
-  if (!server) {
-    return null
-  }
-
   const onCopy = () => {
     navigator.clipboard.writeText(inviteUrl)
     setCopied(true)

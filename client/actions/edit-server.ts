@@ -1,12 +1,26 @@
 'use server'
 
+import * as z from 'zod'
+
 import { v4 as uuidv4 } from 'uuid'
 
 import { currentUser } from '@/lib/auth'
 import { db } from '@/lib/db'
+import { EditServerSchema } from '@/schemas'
 
-export const generateInviteLinkServer = async (serverId: string) => {
+export const editServer = async (
+  values: z.infer<typeof EditServerSchema>,
+  serverId: string
+) => {
   try {
+    const validatedFields = EditServerSchema.safeParse(values)
+
+    if (!validatedFields.success) {
+      return { error: 'Invalid Fields!' }
+    }
+
+    const { imageUrl, name } = validatedFields.data
+
     const user = await currentUser()
 
     if (!user) {
@@ -23,7 +37,8 @@ export const generateInviteLinkServer = async (serverId: string) => {
         userId: user.id
       },
       data: {
-        inviteCode: uuidv4()
+        name,
+        image: imageUrl
       }
     })
 
