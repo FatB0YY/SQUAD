@@ -2,7 +2,6 @@ import { currentRole, currentUser } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { redirect } from '@/navigation'
 import { ChannelType } from '@prisma/client'
-import { Chennel } from '@prisma/client'
 import { ServerHeader } from './server-header'
 
 interface ServerSidebarProps {
