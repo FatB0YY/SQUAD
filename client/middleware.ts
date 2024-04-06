@@ -1,14 +1,6 @@
 import { auth as authMiddleware } from '@/auth'
 import createIntlMiddleware from 'next-intl/middleware'
 import { locales } from '@/navigation'
-// import {
-//   DEFAULT_LOGIN_REDIRECT,
-//   apiAuthPrefix,
-//   authRoutes,
-//   publicRoutes
-// } from './routes'
-// import NextAuth from 'next-auth'
-// import authConfig from './auth.config'
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -20,5 +12,6 @@ export default authMiddleware((req) => {
 })
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Skip all paths that aren't pages that you'd like to internationalize
+  matcher: ['/((?!api|_next|monitoring|.*\\..*).*)']
 }
