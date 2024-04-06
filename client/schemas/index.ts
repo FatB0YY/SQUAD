@@ -1,5 +1,5 @@
-import { UserRole } from '@prisma/client'
 import * as z from 'zod'
+import { ChannelType, UserRole } from '@prisma/client'
 
 export const LoginSchema = z.object({
   email: z.string().email({
@@ -96,4 +96,16 @@ export const EditServerSchema = z.object({
   imageUrl: z.string().min(1, {
     message: 'Server image is required.'
   })
+})
+
+export const CreateChannelSchema = z.object({
+  name: z
+    .string()
+    .min(1, {
+      message: 'Channel name is required.'
+    })
+    .refine((name) => name !== 'general', {
+      message: "Channel name cannot be 'general'"
+    }),
+  type: z.nativeEnum(ChannelType)
 })

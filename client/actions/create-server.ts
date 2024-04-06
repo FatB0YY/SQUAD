@@ -1,1 +1,3 @@
-export const createServer = () => {}
+'use server'
+
+export const createServer = async () => {}
