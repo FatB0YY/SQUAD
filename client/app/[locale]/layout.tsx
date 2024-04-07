@@ -1,3 +1,5 @@
+import '../globals.css'
+
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
@@ -9,8 +11,6 @@ import { auth } from '@/auth'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
 import { ModalProvider } from '@/components/providers/modal-provider'
-
-import './globals.css'
 
 const font = Open_Sans({ subsets: ['latin', 'cyrillic'] })
 
@@ -27,7 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
-  const messages = await getMessages() // Проверить
+  const messages = await getMessages() // TODO: Проверить
   const session = await auth()
 
   return (
