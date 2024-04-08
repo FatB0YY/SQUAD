@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server'
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
+import { TriangleAlert } from 'lucide-react'
 
 import { CardWrapper } from '@/components/auth/card-wrapper'
 
@@ -13,7 +13,10 @@ export const ErrorCard = async () => {
       backButtonLabel={t('backBtn')}
     >
       <div className='w-full flex  justify-center items-center '>
-        <ExclamationTriangleIcon className='text-destructive' />
+        <TriangleAlert
+          name='triangle-alert'
+          className='text-destructive'
+        />
       </div>
     </CardWrapper>
   )

@@ -7,8 +7,18 @@ const withNextIntl = createNextIntlPlugin()
 
 const nextConfig = {
   images: {
-    domains: ['uploadthing.com', 'utfs.io']
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'uploadthing.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io'
+      }
+    ]
+  },
+  transpilePackages: ['lucide-react']
 }
 
 export default withSentryConfig(

@@ -2,7 +2,6 @@
 
 import * as z from 'zod'
 import { v4 as uuidv4 } from 'uuid'
-import { getTranslations } from 'next-intl/server'
 
 import { ServerInitialSchema } from '@/schemas'
 import { currentUser } from '@/lib/auth'

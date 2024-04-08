@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
-import { FaUser } from 'react-icons/fa'
+import { User } from 'lucide-react'
 
 interface UserAvatarProps {
   src?: string | null
@@ -17,7 +17,7 @@ export const UserAvatar = ({ className, src, alt }: UserAvatarProps) => {
         alt={alt || undefined}
       />
       {/* <AvatarFallback className='bg-[#4d8ffd]'>
-        <FaUser className='text-white' />
+        <User name='User' className='text-white' />
       </AvatarFallback> */}
     </Avatar>
   )

@@ -1,7 +1,6 @@
 'use client'
 
-import { FaUser } from 'react-icons/fa'
-import { ExitIcon } from '@radix-ui/react-icons'
+import { LogOut, User } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -25,7 +24,10 @@ export const UserButton = () => {
         <Avatar>
           <AvatarImage src={user?.image || ''} />
           <AvatarFallback className='bg-[#4d8ffd]'>
-            <FaUser className='text-white' />
+            <User
+              name='user'
+              className='text-white'
+            />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -35,7 +37,10 @@ export const UserButton = () => {
       >
         <LogoutButton>
           <DropdownMenuItem className='cursor-pointer'>
-            <ExitIcon className='h-4 w-4 mr-2' />
+            <LogOut
+              name='log-out'
+              className='h-4 w-4 mr-2'
+            />
             {t('logout')}
           </DropdownMenuItem>
         </LogoutButton>

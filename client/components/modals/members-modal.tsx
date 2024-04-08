@@ -1,16 +1,18 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+
 import {
-  LuShieldCheck,
-  LuShieldAlert,
-  LuMoreVertical,
-  LuShieldQuestion,
-  LuShield,
-  LuCheck,
-  LuGavel,
-  LuLoader2
-} from 'react-icons/lu'
+  Check,
+  EllipsisVertical,
+  Gavel,
+  LoaderCircle,
+  Shield,
+  ShieldAlert,
+  ShieldCheck,
+  ShieldQuestion
+} from 'lucide-react'
+
 import { MemberRole } from '@prisma/client'
 
 import {
@@ -42,9 +44,17 @@ import { kickMember } from '@/actions/kick-member'
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: (
-    <LuShieldCheck className='h-4 w-4 ml-2 text-indigo-500' />
+    <ShieldCheck
+      name='shield-check'
+      className='h-4 w-4 ml-2 text-indigo-500'
+    />
   ),
-  [MemberRole.ADMIN]: <LuShieldAlert className='h-4 w-4 ml-2 text-rose-500' />
+  [MemberRole.ADMIN]: (
+    <ShieldAlert
+      name='shield-alert'
+      className='h-4 w-4 ml-2 text-rose-500'
+    />
+  )
 }
 
 export const MembersModal = () => {
@@ -137,12 +147,18 @@ export const MembersModal = () => {
                   {/* TODO: также сделать в перекл. языков */}
                   <DropdownMenu>
                     <DropdownMenuTrigger>
-                      <LuMoreVertical className='h-4 w-4 text-zinc-500' />
+                      <EllipsisVertical
+                        name='ellipsis-vertical'
+                        className='h-4 w-4 text-zinc-500'
+                      />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side='left'>
                       <DropdownMenuSub>
                         <DropdownMenuSubTrigger className='flex items-center'>
-                          <LuShieldQuestion className='h-4 w-4 mr-2' />
+                          <ShieldQuestion
+                            name='shield-question'
+                            className='h-4 w-4 mr-2'
+                          />
                           <span>Role</span>
                         </DropdownMenuSubTrigger>
                         <DropdownMenuPortal>
@@ -152,10 +168,16 @@ export const MembersModal = () => {
                                 onRoleChange(member.id, MemberRole.GUEST)
                               }
                             >
-                              <LuShield className='h-4 w-4 mr-2' />
+                              <Shield
+                                name='shield'
+                                className='h-4 w-4 mr-2'
+                              />
                               Guest
                               {member.role === MemberRole.GUEST && (
-                                <LuCheck className='h-4 w-4 ml-auto' />
+                                <Check
+                                  name='check'
+                                  className='h-4 w-4 ml-auto'
+                                />
                               )}
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -163,10 +185,16 @@ export const MembersModal = () => {
                                 onRoleChange(member.id, MemberRole.MODERATOR)
                               }
                             >
-                              <LuShieldCheck className='h-4 w-4 mr-2' />
+                              <ShieldCheck
+                                name='shield-check'
+                                className='h-4 w-4 mr-2'
+                              />
                               MODERATOR
                               {member.role === MemberRole.MODERATOR && (
-                                <LuCheck className='h-4 w-4 ml-auto' />
+                                <Check
+                                  name='check'
+                                  className='h-4 w-4 ml-auto'
+                                />
                               )}
                             </DropdownMenuItem>
                           </DropdownMenuSubContent>
@@ -174,7 +202,10 @@ export const MembersModal = () => {
                       </DropdownMenuSub>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => onKick(member.id)}>
-                        <LuGavel className='h-4 w-4 mr-2' />
+                        <Gavel
+                          name='gavel'
+                          className='h-4 w-4 mr-2'
+                        />
                         Kick
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -182,7 +213,10 @@ export const MembersModal = () => {
                 </div>
               )}
               {loadingId === member.id && (
-                <LuLoader2 className='animate-spin text-zinc-500 ml-auto w-4 h-4' />
+                <LoaderCircle
+                  name='loader-circle'
+                  className='animate-spin text-zinc-500 ml-auto w-4 h-4'
+                />
               )}
             </div>
           ))}

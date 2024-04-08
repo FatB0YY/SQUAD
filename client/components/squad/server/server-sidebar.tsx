@@ -1,11 +1,5 @@
-import {
-  LuHash,
-  LuMic,
-  LuShieldAlert,
-  LuShieldCheck,
-  LuVideo
-} from 'react-icons/lu'
-
+import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
 import { currentUser } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { redirect } from '@/navigation'
@@ -13,23 +7,49 @@ import { ChannelType, MemberRole } from '@prisma/client'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ServerHeader } from './server-header'
 import { ServerSearch } from './server-search'
+import { ServerSection } from './server-section'
+import { ServerChannel } from './server-channel'
+import { ServerMember } from './server-member'
 
 interface ServerSidebarProps {
   serverId: string
 }
 
 const iconMap = {
-  [ChannelType.TEXT]: <LuHash className='mr-2 h-4 w-4' />,
-  [ChannelType.AUDIO]: <LuMic className='mr-2 h-4 w-4' />,
-  [ChannelType.VIDEO]: <LuVideo className='mr-2 h-4 w-4' />
+  [ChannelType.TEXT]: (
+    <Hash
+      name='hash'
+      className='mr-2 h-4 w-4'
+    />
+  ),
+  [ChannelType.AUDIO]: (
+    <Mic
+      name='mic'
+      className='mr-2 h-4 w-4'
+    />
+  ),
+  [ChannelType.VIDEO]: (
+    <Video
+      name='video'
+      className='mr-2 h-4 w-4'
+    />
+  )
 }
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: (
-    <LuShieldCheck className='mr-2 h-4 w-4 text-indigo-500' />
+    <ShieldCheck
+      name='shield-check'
+      className='mr-2 h-4 w-4 text-indigo-500'
+    />
   ),
-  [MemberRole.ADMIN]: <LuShieldAlert className='mr-2 h-4 w-4 text-rose-500' />
+  [MemberRole.ADMIN]: (
+    <ShieldAlert
+      name='shield-alert'
+      className='mr-2 h-4 w-4 text-rose-500'
+    />
+  )
 }
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
@@ -133,6 +153,90 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             ]}
           />
         </div>
+        <Separator className='bg-zinc-200 dark:bg-zinc-700 rounded-md my-2' />
+        {!!textChannels?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='channels'
+              channelType={ChannelType.TEXT}
+              memberRole={memberRole}
+              label='Text Channels'
+              server={server}
+            />
+            <div className='space-y-[2px]'>
+              {textChannels.map((channel) => (
+                <ServerChannel
+                  channel={channel}
+                  key={channel.id}
+                  memberRole={memberRole}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {!!audioChannels?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='channels'
+              channelType={ChannelType.AUDIO}
+              memberRole={memberRole}
+              label='Voice Channels'
+              server={server}
+            />
+            <div className='space-y-[2px]'>
+              {audioChannels.map((channel) => (
+                <ServerChannel
+                  channel={channel}
+                  key={channel.id}
+                  memberRole={memberRole}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {!!videoChannels?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='channels'
+              channelType={ChannelType.VIDEO}
+              memberRole={memberRole}
+              label='Video Channels'
+              server={server}
+            />
+
+            <div className='space-y-[2px]'>
+              {videoChannels.map((channel) => (
+                <ServerChannel
+                  channel={channel}
+                  key={channel.id}
+                  memberRole={memberRole}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {!!members?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='members'
+              memberRole={memberRole}
+              label='Members'
+              server={server}
+            />
+            <div className='space-y-[2px]'>
+              {members.map((member) => (
+                <ServerMember
+                  key={member.id}
+                  member={member}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </ScrollArea>
     </div>
   )

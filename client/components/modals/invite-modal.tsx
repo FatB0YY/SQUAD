@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { LuCopy, LuRefreshCcw, LuCheck } from 'react-icons/lu'
+import { Check, Copy, RefreshCcw } from 'lucide-react'
 
 import {
   Dialog,
@@ -36,7 +36,7 @@ export const InviteModal = () => {
 
     setTimeout(() => {
       setCopied(false)
-    }, 1000)
+    }, 500)
   }
 
   const onNew = () => {
@@ -83,9 +83,15 @@ export const InviteModal = () => {
               disabled={isPending}
             >
               {copied ? (
-                <LuCheck className='w-4 h-4' />
+                <Check
+                  name='check'
+                  className='w-4 h-4'
+                />
               ) : (
-                <LuCopy className='w-4 h-4' />
+                <Copy
+                  name='copy'
+                  className='w-4 h-4'
+                />
               )}
             </Button>
           </div>
@@ -97,7 +103,10 @@ export const InviteModal = () => {
             disabled={isPending}
           >
             Generate a new link
-            <LuRefreshCcw className='w-4 h-4 ml-2' />
+            <RefreshCcw
+              name='refresh-ccw'
+              className='w-4 h-4 ml-2'
+            />
           </Button>
           <FormError message={error} />
         </div>

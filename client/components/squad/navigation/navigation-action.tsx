@@ -1,6 +1,6 @@
 'use client'
-import { VscAdd } from 'react-icons/vsc'
 
+import { Plus } from 'lucide-react'
 import { ActionTooltip } from '@/components/action-tooltip'
 import { useModal } from '@/hooks/store/use-modal-store'
 
@@ -19,9 +19,9 @@ export const NavigationAction = () => {
           className='group flex items-center'
         >
           <div className='flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden items-center justify-center bg-background dark:bg-neutral-700 group-hover:bg-emerald-500'>
-            <VscAdd
+            <Plus
+              name='plus'
               size={25}
-              style={{ marginLeft: '2px', marginTop: '1px' }}
               className='group-hover:text-white transition text-emerald-500'
             />
           </div>

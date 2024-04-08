@@ -2,8 +2,6 @@
 
 import * as z from 'zod'
 
-import { v4 as uuidv4 } from 'uuid'
-
 import { currentUser } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { EditServerSchema } from '@/schemas'

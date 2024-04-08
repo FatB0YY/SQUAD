@@ -34,7 +34,6 @@ import { useModal } from '@/hooks/store/use-modal-store'
 import { CreateChannelSchema } from '@/schemas'
 
 import { FormError } from '../form-error'
-import { FormSuccess } from '../form-success'
 import { ChannelType } from '@prisma/client'
 import { createChannel } from '@/actions/create-channel'
 

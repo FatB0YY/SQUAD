@@ -1,14 +1,14 @@
 'use client'
 
-import { VscChevronDown, VscSettingsGear } from 'react-icons/vsc'
 import {
-  LuUserPlus,
-  LuUsers,
-  LuPlusCircle,
-  LuTrash,
-  LuLogOut
-} from 'react-icons/lu'
-
+  ChevronDown,
+  CirclePlus,
+  LogOut,
+  Settings,
+  Trash,
+  UserPlus,
+  Users
+} from 'lucide-react'
 import { MemberRole } from '@prisma/client'
 import { ServerWithMembersWithUsers } from '@/types'
 import {
@@ -40,7 +40,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
       >
         <button className='w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg:zinc-700/10 dark:hover:bg-zinc-700/50 transition'>
           {server.name}
-          <VscChevronDown className='h-5 w-5 ml-auto' />
+          <ChevronDown
+            name='chevron-down'
+            className='h-5 w-5 ml-auto'
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]'>
@@ -50,7 +53,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer'
           >
             Invite People
-            <LuUserPlus className='h-4 w-4 ml-auto' />
+            <UserPlus
+              name='user-plus'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
         {isAdmin && (
@@ -59,7 +65,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='px-3 py-2 text-sm cursor-pointer'
           >
             Server Settings
-            <VscSettingsGear className='h-4 w-4 ml-auto' />
+            <Settings
+              name='settings'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
         {isAdmin && (
@@ -68,7 +77,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='px-3 py-2 text-sm cursor-pointer'
           >
             Manage Members
-            <LuUsers className='h-4 w-4 ml-auto' />
+            <Users
+              name='users'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
         {isModerator && (
@@ -77,7 +89,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='px-3 py-2 text-sm cursor-pointer'
           >
             Create Channel
-            <LuPlusCircle className='h-4 w-4 ml-auto' />
+            <CirclePlus
+              name='circle-plus'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
         {isModerator && <DropdownMenuSeparator />}
@@ -87,7 +102,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='text-rose-500 px-3 py-2 text-sm cursor-pointer'
           >
             Delete Server
-            <LuTrash className='h-4 w-4 ml-auto' />
+            <Trash
+              name='trash'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
         {!isAdmin && (
@@ -96,7 +114,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             className='text-rose-500 px-3 py-2 text-sm cursor-pointer'
           >
             Leave Server
-            <LuLogOut className='h-4 w-4 ml-auto' />
+            <LogOut
+              name='log-out'
+              className='h-4 w-4 ml-auto'
+            />
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>
