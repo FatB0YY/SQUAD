@@ -41,7 +41,7 @@ export const CreateChannelModal = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const { isOpen, onClose, type, data, setNewData } = useModal()
+  const { isOpen, onClose, type, data } = useModal()
   const router = useRouter()
 
   const isModalOpen = isOpen && type === 'createChannel'
@@ -73,7 +73,6 @@ export const CreateChannelModal = () => {
             // TODO: обработка error
             setError(data.error)
           } else {
-            setNewData('createChannel', { server: data })
             form.reset()
             router.refresh()
             onClose()

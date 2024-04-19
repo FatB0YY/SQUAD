@@ -11,30 +11,31 @@ import {
 } from '@/components/ui/dialog'
 import { useModal } from '@/hooks/store/use-modal-store'
 import { Button } from '@/components/ui/button'
-import { leaveServer } from '@/actions/leave-server'
 import { useRouter } from 'next/navigation'
 import { FormError } from '../form-error'
+import { deleteChannel } from '@/actions/delete-channel'
 
-export const LeaverServerModal = () => {
+export const DeleteChannelModal = () => {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const [error, setError] = useState<string | undefined>(undefined)
 
   const { isOpen, onClose, type, data } = useModal()
-  const { server } = data
+  const { server, channel } = data
 
-  const isModalOpen = isOpen && type === 'leaveServer'
+  const isModalOpen = isOpen && type === 'deleteChannel'
 
   const onClick = () => {
     startTransition(() => {
-      leaveServer(server.id)
+      deleteChannel(server.id, channel.id)
         .then((data) => {
           if ('error' in data) {
             setError(data.error)
           } else {
-            onClose()
             router.refresh()
-            router.push('/')
+            router.push(`/servers/${server?.id}`)
+            onClose()
+            window.location.reload()
           }
         })
         .catch((error) => {
@@ -51,14 +52,14 @@ export const LeaverServerModal = () => {
       <DialogContent className='bg-white text-black p-0 overflow-hidden'>
         <DialogHeader className='pt-8 px-6'>
           <DialogTitle className='text-2xl text-center font-bold'>
-            Leave Server
+            Delete Channel
           </DialogTitle>
           <DialogDescription className='text-center text-zinc-500'>
-            Are you sure you want to leave
+            Are you sure you want to do this? <br />
             <span className='font-semibold text-indigo-500'>
-              {server?.name}
-            </span>
-            ?
+              #{channel?.name}
+            </span>{' '}
+            will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='bg-gray-100 px-6 py-4'>

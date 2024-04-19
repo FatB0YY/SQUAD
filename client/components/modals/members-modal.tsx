@@ -144,7 +144,6 @@ export const MembersModal = () => {
               </div>
               {server.userId !== member.userId && loadingId !== member.id && (
                 <div className='ml-auto'>
-                  {/* TODO: также сделать в перекл. языков */}
                   <DropdownMenu>
                     <DropdownMenuTrigger>
                       <EllipsisVertical

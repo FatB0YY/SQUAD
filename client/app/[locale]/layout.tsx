@@ -27,7 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
-  const messages = await getMessages() // TODO: Проверить
+  const messages = await getMessages()
   const session = await auth()
 
   return (

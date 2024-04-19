@@ -34,7 +34,7 @@ export default async function Home() {
             variant='primary'
             size='lg'
           >
-            Register Now
+            Открыть Squad
           </Button>
         </LoginButton>
       </header>

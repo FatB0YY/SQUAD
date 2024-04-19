@@ -6,7 +6,6 @@ import { redirect } from '@/navigation'
 const ServerPage = async () => {
   const session = await auth()
 
-  // подумать
   const server = await db.server.findFirst({
     where: {
       members: {

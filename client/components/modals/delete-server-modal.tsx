@@ -20,7 +20,7 @@ export const DeleteServerModal = () => {
   const router = useRouter()
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const { isOpen, onClose, type, data, setNewData } = useModal()
+  const { isOpen, onClose, type, data } = useModal()
   const { server } = data
 
   const isModalOpen = isOpen && type === 'deleteServer'
@@ -32,7 +32,6 @@ export const DeleteServerModal = () => {
           if ('error' in data) {
             setError(data.error)
           } else {
-            setNewData('deleteServer', { server: data })
             onClose()
             router.refresh()
             router.push('/')

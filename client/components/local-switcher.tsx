@@ -1,15 +1,17 @@
 'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import {
+  DropdownMenuCheckboxItem,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger
+} from '@/components/ui/dropdown-menu'
+import { Languages } from 'lucide-react'
 
 export const LocalSwitcher = () => {
   const [isPending, startTransition] = useTransition()
@@ -23,18 +25,29 @@ export const LocalSwitcher = () => {
   }
 
   return (
-    <Select
-      defaultValue={localActive}
-      onValueChange={onValueChange}
-      disabled={isPending}
-    >
-      <SelectTrigger className='w-[180px]'>
-        <SelectValue placeholder='Theme' />
-      </SelectTrigger>
-      <SelectContent side='left'>
-        <SelectItem value='ru'>Русский</SelectItem>
-        <SelectItem value='en'>English</SelectItem>
-      </SelectContent>
-    </Select>
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger
+        disabled={isPending}
+        className='flex'
+      >
+        <Languages className='w-4 h-4 mr-2' /> Язык
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuSubContent>
+          <DropdownMenuCheckboxItem
+            checked={localActive === 'ru'}
+            onClick={() => onValueChange('ru')}
+          >
+            Русский
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            checked={localActive === 'en'}
+            onClick={() => onValueChange('en')}
+          >
+            English
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
   )
 }

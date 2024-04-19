@@ -9,6 +9,8 @@ export type ModalType =
   | 'createChannel'
   | 'leaveServer'
   | 'deleteServer'
+  | 'deleteChannel'
+  | 'editChannel'
 
 interface ModalData {
   server?: Server
@@ -22,7 +24,6 @@ interface ModalStore {
   data: ModalData
   isOpen: boolean
   onOpen: (type: ModalType, data?: ModalData) => void
-  setNewData: (type: ModalType, data?: ModalData) => void
   onClose: () => void
 }
 
@@ -31,6 +32,5 @@ export const useModal = create<ModalStore>((set) => ({
   data: {},
   isOpen: false,
   onOpen: (type, data = {}) => set({ isOpen: true, type, data }),
-  setNewData: (type, data = {}) => set({ type, data }),
   onClose: () => set({ isOpen: false, type: null })
 }))

@@ -1,8 +1,5 @@
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { currentUser } from '@/lib/auth'
-import { db } from '@/lib/db'
-import { redirect } from '@/navigation'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ServerHeader } from './server-header'
@@ -10,6 +7,8 @@ import { ServerSearch } from './server-search'
 import { ServerSection } from './server-section'
 import { ServerChannel } from './server-channel'
 import { ServerMember } from './server-member'
+import { getServerData } from '@/actions/get-server-data'
+import { redirect } from 'next/navigation'
 
 interface ServerSidebarProps {
   serverId: string
@@ -53,56 +52,20 @@ const roleIconMap = {
 }
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
-  const user = await currentUser()
+  const { data, error } = await getServerData(serverId)
 
-  if (!user) {
+  if (!data || error) {
     return redirect('/')
   }
 
-  const server = await db.server.findUnique({
-    where: { id: serverId },
-    include: {
-      channels: {
-        orderBy: {
-          createdAt: 'asc'
-        }
-      },
-      members: {
-        include: {
-          user: true
-        },
-        orderBy: {
-          role: 'asc'
-        }
-      }
-    }
-  })
-
-  if (!server) {
-    return redirect('/')
-  }
-
-  const textChannels = []
-  const audioChannels = []
-  const videoChannels = []
-
-  // TODO: сортировка на сервере
-  for (const channel of server?.channels || []) {
-    if (channel.type === ChannelType.TEXT) {
-      textChannels.push(channel)
-    }
-    if (channel.type === ChannelType.AUDIO) {
-      audioChannels.push(channel)
-    }
-    if (channel.type === ChannelType.VIDEO) {
-      videoChannels.push(channel)
-    }
-  }
-
-  const members = server?.members.filter((member) => member.userId !== user.id)
-  const memberRole = server.members.find(
-    (member) => member.userId === user.id
-  )?.role
+  const {
+    audioChannels,
+    memberRole,
+    members,
+    server,
+    textChannels,
+    videoChannels
+  } = data
 
   return (
     <div className='flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]'>
@@ -146,7 +109,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 type: 'member',
                 items: members?.map((member) => ({
                   id: member.id,
-                  name: member.user.name as string, // TODO: проверить тип
+                  name: member.user.name || member.user.email || member.user.id,
                   icon: roleIconMap[member.role]
                 }))
               }
