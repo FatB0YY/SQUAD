@@ -4,14 +4,16 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// prisma/schema.prisma
 
 // User -> это email + password (credentials)
 // Account -> это OAuth, также создается User
 
+// prisma/schema.prisma
 datasource db {
   provider  = "postgresql"
   url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 generator client {
@@ -84,6 +86,14 @@ model Member {
   serverId           String
   server             Server               @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
+  messages           Message[]
+
+  conversationInitiated Conversation[]    @relation("MemberOne")
+  conversationReceived  Conversation[]    @relation("MemberTwo")
+
+  directMessages     DirectMessage[]
+
+
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
 
@@ -107,6 +117,8 @@ model Channel {
 
   serverId           String
   server             Server               @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages           Message[]
 
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
@@ -172,3 +184,62 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
+// messenger
+
+model Message {
+  id                 String               @id @default(cuid())
+  content            String               @db.Text
+
+  fileUrl            String?              @db.Text
+
+  memberId           String
+  member             Member               @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  channelId          String
+  channel            Channel              @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  deleted            Boolean              @default(false)
+
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  @@index([channelId])
+  @@index([memberId])
+}
+
+model Conversation {
+  id                 String               @id @default(cuid())
+
+  memberOneId        String
+  memberOne          Member               @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+
+  memberTwoId        String
+  memberTwo          Member               @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+
+  directMessages     DirectMessage[]
+
+  // @@index([memberOneId])
+  @@index([memberTwoId])
+
+  @@unique([memberOneId, memberTwoId])
+}
+
+model DirectMessage {
+  id                 String               @id @default(cuid())
+  content            String               @db.Text
+  fileUrl            String?              @db.Text  
+
+  memberId           String
+  member             Member               @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  conversationId     String
+  conversation       Conversation         @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  deleted            Boolean              @default(false)
+
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  @@index([memberId])
+  @@index([conversationId])
+}

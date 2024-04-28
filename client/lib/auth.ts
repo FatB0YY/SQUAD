@@ -1,3 +1,8 @@
+/**
+ * currentUser - возвращает session из next-auth (см auth.config.ts -> callbacks.session)
+ * currentRole - возвращает роль пользователя, НЕ участника сервера!!!
+ */
+
 import { auth } from '@/auth'
 
 export const currentUser = async () => {
